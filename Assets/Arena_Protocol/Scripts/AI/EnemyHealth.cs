@@ -17,6 +17,9 @@ public class EnemyHealth : NetworkBehaviour, IDamageable
 
     public event Action<float, float> OnHealthChanged;
 
+    // Server-side death notification for systems such as EnemySpawner.
+    public event Action<EnemyHealth> OnEnemyDied;
+
     public override void OnNetworkSpawn()
     {
         CurrentHealth.OnValueChanged += HandleHealthChanged;
@@ -53,6 +56,9 @@ public class EnemyHealth : NetworkBehaviour, IDamageable
     {
         if (!IsServer)
             return;
+
+        // Tell EnemySpawner this enemy died BEFORE despawning.
+        OnEnemyDied?.Invoke(this);
 
         NetworkObject.Despawn();
     }
