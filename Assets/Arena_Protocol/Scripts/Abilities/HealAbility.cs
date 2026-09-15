@@ -5,11 +5,14 @@ public class HealAbility : AbilityBase
     [Header("Heal")]
     [SerializeField] private float healAmount = 25f;
 
-    private PlayerHealth playerHealth;
+   
 
-    private void Awake()
+    protected override void Awake()
     {
-        playerHealth = GetComponent<PlayerHealth>();
+        base.Awake();
+
+        playerHealth =
+            GetComponent<PlayerHealth>();
     }
 
     protected override bool CanUseAbility()

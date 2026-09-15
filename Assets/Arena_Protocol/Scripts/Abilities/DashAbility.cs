@@ -11,9 +11,12 @@ public class DashAbility : AbilityBase
     private CharacterController characterController;
     private Coroutine dashCoroutine;
 
-    private void Awake()
+    protected override void Awake()
     {
-        characterController = GetComponent<CharacterController>();
+        base.Awake();
+
+        characterController =
+            GetComponent<CharacterController>();
     }
 
     protected override bool CanUseAbility()

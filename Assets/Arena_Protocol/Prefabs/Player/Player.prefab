@@ -81,6 +81,7 @@ GameObject:
   - component: {fileID: -1031137726787118800}
   - component: {fileID: -2284774536942021986}
   - component: {fileID: 552816042242122723}
+  - component: {fileID: -2094853716199280050}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -234,9 +235,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LocalPlayerCamera
   ShowTopMostFoldoutHeaderGroup: 1
-  offset: {x: 0, y: 9, z: -8}
+  offset: {x: 0, y: 11, z: -9}
   followSpeed: 7
-  xRotation: 45
+  xRotation: 55
   yRotation: 0
 --- !u!114 &2726545649467555067
 MonoBehaviour:
@@ -302,7 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileAbility
   ShowTopMostFoldoutHeaderGroup: 1
-  cooldownDuration: 0.25
+  cooldownDuration: 1
   projectilePrefab: {fileID: 2250698919860542497, guid: c8ca0d685e778d84f8f24959281872e6, type: 3}
   spawnPoint: {fileID: 3180874824067960483}
 --- !u!114 &552816042242122723
@@ -319,6 +320,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HealAbility
   ShowTopMostFoldoutHeaderGroup: 1
   cooldownDuration: 3
+  healAmount: 25
+--- !u!114 &-2094853716199280050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5979879062449352733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4180d3eb9c4441d4ba8d4a439648534f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSession
+  ShowTopMostFoldoutHeaderGroup: 1
 --- !u!1 &6097252673494231369
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,7 +28,7 @@ public class PlayerAbilityController : NetworkBehaviour
 
         if (Input.GetMouseButtonDown(0)|| Input.GetKeyDown(KeyCode.X))
         {
-            projectileAbility?.TryUseAbility();
+            projectileAbility?.TryUseProjectile();
         }
 
         if (Input.GetKeyDown(KeyCode.E))

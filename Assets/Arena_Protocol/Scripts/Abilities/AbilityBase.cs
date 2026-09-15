@@ -5,6 +5,12 @@ public abstract class AbilityBase : NetworkBehaviour
 {
     [Header("Ability")]
     [SerializeField] protected float cooldownDuration = 3f;
+    protected PlayerHealth playerHealth;
+
+    protected virtual void Awake()
+    {
+        playerHealth = GetComponent<PlayerHealth>();
+    }
 
     protected NetworkVariable<float> cooldownEndTime =
         new NetworkVariable<float>(
@@ -35,9 +41,23 @@ public abstract class AbilityBase : NetworkBehaviour
         }
     }
 
+    public float CooldownEndTime => cooldownEndTime.Value;
+
+    public void RestoreCooldownEndTime(float endTime)
+    {
+        if (!IsServer)
+            return;
+
+        cooldownEndTime.Value = endTime;
+    }
+
     public void TryUseAbility()
     {
         if (!IsOwner)
+            return;
+
+        if (playerHealth != null &&
+            playerHealth.IsDead.Value)
             return;
 
         RequestUseAbilityRpc();
@@ -46,6 +66,10 @@ public abstract class AbilityBase : NetworkBehaviour
     [Rpc(SendTo.Server)]
     private void RequestUseAbilityRpc()
     {
+        if (playerHealth != null &&
+            playerHealth.IsDead.Value)
+            return;
+
         if (IsOnCooldown)
             return;
 
@@ -55,8 +79,8 @@ public abstract class AbilityBase : NetworkBehaviour
         ExecuteAbility();
 
         cooldownEndTime.Value =
-            (float)NetworkManager.Singleton.ServerTime.Time
-            + cooldownDuration;
+            (float)NetworkManager.Singleton.ServerTime.Time +
+            cooldownDuration;
     }
 
     protected virtual bool CanUseAbility()

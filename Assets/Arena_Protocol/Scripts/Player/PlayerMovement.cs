@@ -16,10 +16,14 @@ public class PlayerMovement : NetworkBehaviour
 
     private float verticalVelocity;
     private bool hasFocus;
-
+    private PlayerHealth playerHealth;
     private void Awake()
     {
-        characterController = GetComponent<CharacterController>();
+        characterController =
+            GetComponent<CharacterController>();
+
+        playerHealth =
+            GetComponent<PlayerHealth>();
     }
 
     public override void OnNetworkSpawn()
@@ -42,7 +46,10 @@ public class PlayerMovement : NetworkBehaviour
         if (!IsOwner)
             return;
 
-        // Important when testing two game instances on one PC.
+        if (playerHealth != null &&
+            playerHealth.IsDead.Value)
+            return;
+
         if (!hasFocus)
             return;
 
