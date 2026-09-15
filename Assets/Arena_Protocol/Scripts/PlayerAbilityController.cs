@@ -26,7 +26,7 @@ public class PlayerAbilityController : NetworkBehaviour
             dashAbility?.TryUseAbility();
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)|| Input.GetKeyDown(KeyCode.X))
         {
             projectileAbility?.TryUseAbility();
         }

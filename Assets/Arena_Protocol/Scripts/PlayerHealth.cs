@@ -29,6 +29,10 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
 
         // Push initial value to listeners/UI.
         OnHealthChanged?.Invoke(CurrentHealth.Value, maxHealth);
+        if (IsOwner)
+        {
+            GameplayHUD.Instance?.InitializeLocalPlayer(this);
+        }
     }
 
     public override void OnNetworkDespawn()
