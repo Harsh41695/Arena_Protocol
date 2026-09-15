@@ -91,15 +91,15 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
         if (!IsOwner)
             return;
 
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            RequestDebugDamageRpc();
-        }
+        //if (Input.GetKeyDown(KeyCode.K))
+        //{
+        //    RequestDebugDamageRpc();
+        //}
 
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            RequestDebugHealRpc();
-        }
+        //if (Input.GetKeyDown(KeyCode.H))
+        //{
+        //    RequestDebugHealRpc();
+        //}
     }
 
     [Rpc(SendTo.Server)]

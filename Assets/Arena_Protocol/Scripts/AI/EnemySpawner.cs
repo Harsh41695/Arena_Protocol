@@ -81,11 +81,14 @@ public class EnemySpawner : NetworkBehaviour
             spawnPoints[index % spawnPoints.Length];
 
         NetworkObject enemy =
-            Instantiate(
-                enemyPrefab,
-                spawnPoint.position,
-                spawnPoint.rotation
-            );
+        NetworkObjectPool.Instance.Get(
+        enemyPrefab,
+        spawnPoint.position,
+        spawnPoint.rotation
+    );
+
+        if (enemy == null)
+            return;
 
         enemy.Spawn();
 
