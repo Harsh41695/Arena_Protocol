@@ -21,10 +21,21 @@ public class PlayerSession : NetworkBehaviour
         if (!IsServer)
             return;
 
+        // Existing state restoration
         ReconnectionManager.Instance?.RestorePlayerState(
             OwnerClientId,
             this
         );
+
+        
+        Vector3 spawnPosition =
+            ReconnectionManager.Instance.GetSpawnPosition(OwnerClientId);
+
+        PlayerMovement movement =
+            GetComponent<PlayerMovement>();
+
+        if (movement != null)
+            movement.SetSpawnPositionRpc(spawnPosition);
     }
 
     public override void OnNetworkDespawn()

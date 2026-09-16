@@ -310,7 +310,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileAbility
   ShowTopMostFoldoutHeaderGroup: 1
-  cooldownDuration: 1
+  cooldownDuration: 2
   projectilePrefab: {fileID: 2250698919860542497, guid: c8ca0d685e778d84f8f24959281872e6, type: 3}
   spawnPoint: {fileID: 3180874824067960483}
 --- !u!114 &552816042242122723

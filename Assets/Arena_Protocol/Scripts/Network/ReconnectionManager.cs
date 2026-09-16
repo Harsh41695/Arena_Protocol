@@ -45,9 +45,7 @@ public class ReconnectionManager : MonoBehaviour
             HandleClientDisconnected;
     }
 
-    // ---------------------------------------------------------
-    // CONNECTION APPROVAL
-    // ---------------------------------------------------------
+   
 
     private void ApprovalCheck(
         NetworkManager.ConnectionApprovalRequest request,

@@ -112,4 +112,16 @@ public class PlayerMovement : NetworkBehaviour
             rotationSpeed * Time.deltaTime
         );
     }
+
+    [Rpc(SendTo.Owner)]
+    public void SetSpawnPositionRpc(Vector3 position)
+    {
+        if (characterController != null)
+            characterController.enabled = false;
+
+        transform.position = position;
+
+        if (characterController != null)
+            characterController.enabled = true;
+    }
 }
