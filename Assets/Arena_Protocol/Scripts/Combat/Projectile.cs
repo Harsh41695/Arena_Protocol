@@ -8,6 +8,9 @@ public class Projectile : NetworkBehaviour
     [SerializeField] private float damage = 25f;
     [SerializeField] private float lifetime = 4f;
 
+    [Header("Visual")]
+    [SerializeField] private string hitVFXId = "ProjectileHit";
+
     private float remainingLifetime;
     private bool hasHit;
 
@@ -26,14 +29,14 @@ public class Projectile : NetworkBehaviour
             return;
 
         transform.position +=
-            transform.forward * speed * Time.deltaTime;
+            transform.forward *
+            speed *
+            Time.deltaTime;
 
         remainingLifetime -= Time.deltaTime;
 
         if (remainingLifetime <= 0f)
-        {
             DespawnProjectile();
-        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -41,7 +44,6 @@ public class Projectile : NetworkBehaviour
         if (!IsServer || hasHit)
             return;
 
-        // Player projectile can only damage enemies.
         EnemyHealth enemyHealth =
             other.GetComponentInParent<EnemyHealth>();
 
@@ -50,14 +52,35 @@ public class Projectile : NetworkBehaviour
 
         hasHit = true;
 
+        Vector3 hitPosition =
+            other.ClosestPoint(transform.position);
+
         enemyHealth.TakeDamage(damage);
+
+        PlayHitVFXRpc(
+            hitPosition,
+            transform.rotation
+        );
 
         DespawnProjectile();
     }
 
+    [Rpc(SendTo.Everyone)]
+    private void PlayHitVFXRpc(
+        Vector3 position,
+        Quaternion rotation)
+    {
+        VFXPool.Instance?.Play(
+            hitVFXId,
+            position,
+            rotation
+        );
+    }
+
     private void DespawnProjectile()
     {
-        if (!IsServer || !NetworkObject.IsSpawned)
+        if (!IsServer ||
+            !NetworkObject.IsSpawned)
             return;
 
         NetworkObject.Despawn();
